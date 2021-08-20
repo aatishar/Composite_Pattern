@@ -1,2 +1,2 @@
-# Composite_Pattern
-Implemantation of Composite Pattern
+# Composite Pattern
+Implemantation of Composite Pattern in C#
