@@ -8,8 +8,10 @@ namespace Composite_Pattern_Version_1
 {
     class Composite
     {
-        public Composite Parent;
-        public List<Composite> Children = new List<Composite>();
+        private List<Composite> children = new List<Composite>();
+
+        public Composite Parent { get; private set; }
+        public IReadOnlyList<Composite> Children => this.children;
         private decimal price;
 
         public decimal Price
@@ -23,14 +25,14 @@ namespace Composite_Pattern_Version_1
         }
         public void AddChild(Composite composite)
         {
-            this.Children.Add(composite);
+            this.children.Add(composite);
             composite.Parent = this;
             this.Price = this.TotalPrice();
         }
 
         public void RemoveChild(Composite composite)
         {
-            this.Children.Remove(composite);
+            this.children.Remove(composite);
             this.Price = this.TotalPrice();
         }
 
@@ -41,18 +43,18 @@ namespace Composite_Pattern_Version_1
 
         public void ReCalculateTotal()
         {
-            this.Price = this.Children.Sum(a => a.Price);
+            this.Price = this.children.Sum(a => a.Price);
         }
 
         public decimal TotalPrice()
         {
-            if (this.Children.Count == 0)
+            if (this.children.Count == 0)
             {
                 return this.Price;
             }
             else
             {
-                return this.Children
+                return this.children
                    .Select(a => a.TotalPrice())
                    .Sum();
             }
